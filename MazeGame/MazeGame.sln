@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MazeGame", "MazeGame\MazeGame.vcxproj", "{29B04D86-39E4-4F87-ACE2-66C1F2052E4A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Maze", "..\Maze\Maze.vcxproj", "{EB54208F-3446-46CF-8AC9-66EB48015F62}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Render", "..\Render\Render.vcxproj", "{0713BF0D-9E70-4743-BE29-2A75A3AF5E42}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MazeGame", "MazeGame.vcxproj", "{29B04D86-39E4-4F87-ACE2-66C1F2052E4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +17,22 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB54208F-3446-46CF-8AC9-66EB48015F62}.Debug|x64.ActiveCfg = Debug|x64
+		{EB54208F-3446-46CF-8AC9-66EB48015F62}.Debug|x64.Build.0 = Debug|x64
+		{EB54208F-3446-46CF-8AC9-66EB48015F62}.Debug|x86.ActiveCfg = Debug|Win32
+		{EB54208F-3446-46CF-8AC9-66EB48015F62}.Debug|x86.Build.0 = Debug|Win32
+		{EB54208F-3446-46CF-8AC9-66EB48015F62}.Release|x64.ActiveCfg = Release|x64
+		{EB54208F-3446-46CF-8AC9-66EB48015F62}.Release|x64.Build.0 = Release|x64
+		{EB54208F-3446-46CF-8AC9-66EB48015F62}.Release|x86.ActiveCfg = Release|Win32
+		{EB54208F-3446-46CF-8AC9-66EB48015F62}.Release|x86.Build.0 = Release|Win32
+		{0713BF0D-9E70-4743-BE29-2A75A3AF5E42}.Debug|x64.ActiveCfg = Debug|x64
+		{0713BF0D-9E70-4743-BE29-2A75A3AF5E42}.Debug|x64.Build.0 = Debug|x64
+		{0713BF0D-9E70-4743-BE29-2A75A3AF5E42}.Debug|x86.ActiveCfg = Debug|Win32
+		{0713BF0D-9E70-4743-BE29-2A75A3AF5E42}.Debug|x86.Build.0 = Debug|Win32
+		{0713BF0D-9E70-4743-BE29-2A75A3AF5E42}.Release|x64.ActiveCfg = Release|x64
+		{0713BF0D-9E70-4743-BE29-2A75A3AF5E42}.Release|x64.Build.0 = Release|x64
+		{0713BF0D-9E70-4743-BE29-2A75A3AF5E42}.Release|x86.ActiveCfg = Release|Win32
+		{0713BF0D-9E70-4743-BE29-2A75A3AF5E42}.Release|x86.Build.0 = Release|Win32
 		{29B04D86-39E4-4F87-ACE2-66C1F2052E4A}.Debug|x64.ActiveCfg = Debug|x64
 		{29B04D86-39E4-4F87-ACE2-66C1F2052E4A}.Debug|x64.Build.0 = Debug|x64
 		{29B04D86-39E4-4F87-ACE2-66C1F2052E4A}.Debug|x86.ActiveCfg = Debug|Win32
