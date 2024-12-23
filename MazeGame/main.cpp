@@ -1,14 +1,10 @@
 #include <iostream>
-#include "Maze.h"
-
+#include "GameEngine.h"
 
 int main() {
-	srand(512);
-
-	Maze m(31, 40, 50);
+	Game_engine game(20, 30, 5);
 	
-	m.display_maze();
+	game.run();
 
-	std::cout << "Main pocinje\n";
 	return 0;
 }

@@ -1,7 +1,6 @@
 #include "Maze.h"
 
 using namespace std;
-typedef pair<int, int> pii;
 
 Maze::Maze(int n, int m, int items_number) {
 	this->n = n;
@@ -61,7 +60,6 @@ void Maze::dfs(int r, int c, int depth, bool& finish){
 		}
 	}
 }
-
 
 bool Maze::find_path(int r, int c) {
 	visited[r][c] = glob;
@@ -186,4 +184,61 @@ void Maze::generate() {
 
 void Maze::display_maze() {
 	render.display(board);
+}
+
+pii Maze::get_position_robot() {
+	cout << "Searching pos\n";
+	//display_maze();
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			if (board[i][j] == 'R')
+				return make_pair(i, j);
+		}
+	}
+
+	return make_pair(-1, -1);
+}
+
+void Maze::play_minotaur() {
+	int rm = -1, cm = -1;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			if (board[i][j] == 'M') {
+				rm = i;
+				cm = j;
+				break;
+			}
+		}
+	}
+	int n_rm, n_cm;
+	vector<pii> possible;
+	for (int i = 0; i < 4; i++) {
+		n_rm = direction[i].first + rm;
+		n_cm = direction[i].second + cm;
+
+		if (!(n_rm >= 0 && n_rm < n && n_cm < m && n_cm >= 0)) {
+			continue;
+		}
+		else if (board[n_rm][n_cm] == '#') {
+			continue;
+		}
+		else if (board[n_rm][n_cm] == 'P') {
+			
+		}
+		else {
+			possible.push_back(make_pair(n_rm, n_cm));
+		}
+	}
+	int i;
+	i = rand() % (int)possible.size();
+	board[rm][cm] = '.';
+	board[possible[i].first][possible[i].second] = 'M';
+}
+
+char*& Maze::operator[](int row) {
+	// Return a reference to the row
+	if (row < 0 || row >= m) {
+		throw std::out_of_range("Row index out of bounds");
+	}
+	return board[row];
 }
