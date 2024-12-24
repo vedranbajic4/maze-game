@@ -3,7 +3,6 @@
 
 Player::Player() {
 	r = c = 0;
-    cout << "Deafualt kosntruktor\n";
 }
 
 void Player::set_position(pii pos) {
@@ -12,7 +11,6 @@ void Player::set_position(pii pos) {
 }
 
 Player::Player(pair<int, int> pos) {
-    cout << "Pravi kosntruktor\n";
 	r = pos.first;
 	c = pos.second;
 }
@@ -74,9 +72,8 @@ int Player::handle_input(Maze& maze) {
 }
 
 bool Player::play(Maze& maze) {
-    std::cout << maze[r][c] << "\n";
     bool ret = handle_input(maze);
-    if (ret == 2) {
+    if (ret) {
         
     }
     

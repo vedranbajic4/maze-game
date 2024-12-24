@@ -23,11 +23,12 @@ void Game_engine::run() {
 			cout << "\n\nVICTORY\n";
 			return;
 		}
-		else if (played == 3) {
+
+		played = m.play_minotaur();
+
+		if (played) {
 			cout << "\n\nLOST\n";
 			return;
 		}
-
-		m.play_minotaur();
 	}
 }

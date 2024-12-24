@@ -16,7 +16,7 @@ class Maze {
 	char** board;
 	Render render;
 
-	void dfs(int r, int c, int depth, bool& finish);
+	void dfs(int r, int c);
 	void generate();
 	void random_blocks();
 	bool find_path(int r, int c);
@@ -25,7 +25,7 @@ public:
 	Maze(int n, int m, int items_number);
 	pii get_position_robot();
 	void display_maze();
-	void play_minotaur();
+	int play_minotaur();
 	~Maze();
 	char*& operator[](int row);
 };

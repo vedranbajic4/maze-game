@@ -27,37 +27,18 @@ Maze::~Maze() {
 pii direction[4] = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 int visited[MXN+3][MXN+3], glob;
 
-void Maze::dfs(int r, int c, int depth, bool& finish){
-	if (finish) return;
-	cout << depth << endl;
-	int dir, nr, nc;
-	board[r][c] = '.';
-
-	//display_maze();
-
-	if (depth >= n * m / 2) {
-		
-		finish = 1;
-		return;
-	}
-	if (r == -1) {
-		finish = 1;
-		return;
-	}
+void Maze::dfs(int r, int c){
+	int nr = 0, nc = 0;
+	visited[r][c] = glob;
 	//return;
-	for(int i = 1; i <= 100; i++) {
-		dir = rand();
-		//cout << dir << " " << (dir & 3) << endl;
-		dir = (dir & 3);
+	for(int i = 0; i < 4; i++) {
+		nr = r + direction[i].first;
+		nc = c + direction[i].second;
 
-		nr = r + direction[dir].first;
-		nc = c + direction[dir].second;
-
-		if (!(nr >= 1 && nr < (n-1) && nc < (m-1) && nc >= 1)) continue;
+		if (!(nr >= 0 && nr < n && nc < m && nc >= 0)) continue;
 		
-		if (board[nr][nc] == '#') {
-			dfs(nr, nc, depth+1, finish);
-		}
+		if (visited[nr][nc] != glob && board[nr][nc] != '#') 
+			dfs(nr, nc);
 	}
 }
 
@@ -85,7 +66,6 @@ bool Maze::find_path(int r, int c) {
 
 void Maze::random_blocks() {
 	vector<int> numbers;
-	
 
 	int entrance, limit, id, nr, nc, num_blocks;
 	bool found = false;
@@ -170,9 +150,25 @@ void Maze::random_blocks() {
 		items--;
 		board[nr][nc] = 'P';
 	}
-
-	cout << "left items: " << items << endl;
-
+	glob ++;
+	for (int i = 0; i < m; i++) {
+		if (board[1][i] == 'R') {
+			dfs(1, i);
+			break;
+		}
+	}
+	
+	vector<int> possible;
+	for (int i = 0; i < m; i++) {
+		if (visited[n - 2][i] == glob) {
+			cout << i << " ";
+			possible.push_back(i);
+		}
+	}
+	cout << endl;
+	int i;
+	i = rand() % (int)possible.size();
+	board[n-1][possible[i]] = 'I';
 }
 
 void Maze::generate() {
@@ -199,7 +195,7 @@ pii Maze::get_position_robot() {
 	return make_pair(-1, -1);
 }
 
-void Maze::play_minotaur() {
+int Maze::play_minotaur() {
 	int rm = -1, cm = -1;
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
@@ -210,7 +206,7 @@ void Maze::play_minotaur() {
 			}
 		}
 	}
-	int n_rm, n_cm;
+	int n_rm, n_cm, ret = 0;
 	vector<pii> possible;
 	for (int i = 0; i < 4; i++) {
 		n_rm = direction[i].first + rm;
@@ -222,17 +218,23 @@ void Maze::play_minotaur() {
 		else if (board[n_rm][n_cm] == '#') {
 			continue;
 		}
-		else if (board[n_rm][n_cm] == 'P') {
-			
+		else if (board[n_rm][n_cm] == 'R') {
+			possible.clear();
+			possible.push_back(make_pair(n_rm, n_cm));
+			ret = 1;
+			break;
 		}
 		else {
 			possible.push_back(make_pair(n_rm, n_cm));
 		}
 	}
 	int i;
+	
 	i = rand() % (int)possible.size();
 	board[rm][cm] = '.';
 	board[possible[i].first][possible[i].second] = 'M';
+
+	return ret;
 }
 
 char*& Maze::operator[](int row) {
