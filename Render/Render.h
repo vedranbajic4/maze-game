@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include <windows.h>
 
 class Render {
 	int n, m;

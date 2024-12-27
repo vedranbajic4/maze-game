@@ -9,12 +9,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Render", "..\Render\Render.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MazeGame", "MazeGame.vcxproj", "{29B04D86-39E4-4F87-ACE2-66C1F2052E4A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Player", "..\Player\Player.vcxproj", "{171CDDA6-3B9D-4297-9434-EDEB111F417E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{EB54208F-3446-46CF-8AC9-66EB48015F62} = {EB54208F-3446-46CF-8AC9-66EB48015F62}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngine", "..\GameEngine\GameEngine.vcxproj", "{8C574DF7-BA4B-4CD3-B725-B693E5AAA392}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Robot", "..\Robot\Robot.vcxproj", "{349588A5-9956-456E-B753-BF2C2A5F108C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Minotaur", "..\Minotaur\Minotaur.vcxproj", "{95D3A21D-27B5-4420-9CAB-326C14254AD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,14 +47,6 @@ Global
 		{29B04D86-39E4-4F87-ACE2-66C1F2052E4A}.Release|x64.Build.0 = Release|x64
 		{29B04D86-39E4-4F87-ACE2-66C1F2052E4A}.Release|x86.ActiveCfg = Release|Win32
 		{29B04D86-39E4-4F87-ACE2-66C1F2052E4A}.Release|x86.Build.0 = Release|Win32
-		{171CDDA6-3B9D-4297-9434-EDEB111F417E}.Debug|x64.ActiveCfg = Debug|x64
-		{171CDDA6-3B9D-4297-9434-EDEB111F417E}.Debug|x64.Build.0 = Debug|x64
-		{171CDDA6-3B9D-4297-9434-EDEB111F417E}.Debug|x86.ActiveCfg = Debug|Win32
-		{171CDDA6-3B9D-4297-9434-EDEB111F417E}.Debug|x86.Build.0 = Debug|Win32
-		{171CDDA6-3B9D-4297-9434-EDEB111F417E}.Release|x64.ActiveCfg = Release|x64
-		{171CDDA6-3B9D-4297-9434-EDEB111F417E}.Release|x64.Build.0 = Release|x64
-		{171CDDA6-3B9D-4297-9434-EDEB111F417E}.Release|x86.ActiveCfg = Release|Win32
-		{171CDDA6-3B9D-4297-9434-EDEB111F417E}.Release|x86.Build.0 = Release|Win32
 		{8C574DF7-BA4B-4CD3-B725-B693E5AAA392}.Debug|x64.ActiveCfg = Debug|x64
 		{8C574DF7-BA4B-4CD3-B725-B693E5AAA392}.Debug|x64.Build.0 = Debug|x64
 		{8C574DF7-BA4B-4CD3-B725-B693E5AAA392}.Debug|x86.ActiveCfg = Debug|Win32
@@ -64,6 +55,22 @@ Global
 		{8C574DF7-BA4B-4CD3-B725-B693E5AAA392}.Release|x64.Build.0 = Release|x64
 		{8C574DF7-BA4B-4CD3-B725-B693E5AAA392}.Release|x86.ActiveCfg = Release|Win32
 		{8C574DF7-BA4B-4CD3-B725-B693E5AAA392}.Release|x86.Build.0 = Release|Win32
+		{349588A5-9956-456E-B753-BF2C2A5F108C}.Debug|x64.ActiveCfg = Debug|x64
+		{349588A5-9956-456E-B753-BF2C2A5F108C}.Debug|x64.Build.0 = Debug|x64
+		{349588A5-9956-456E-B753-BF2C2A5F108C}.Debug|x86.ActiveCfg = Debug|Win32
+		{349588A5-9956-456E-B753-BF2C2A5F108C}.Debug|x86.Build.0 = Debug|Win32
+		{349588A5-9956-456E-B753-BF2C2A5F108C}.Release|x64.ActiveCfg = Release|x64
+		{349588A5-9956-456E-B753-BF2C2A5F108C}.Release|x64.Build.0 = Release|x64
+		{349588A5-9956-456E-B753-BF2C2A5F108C}.Release|x86.ActiveCfg = Release|Win32
+		{349588A5-9956-456E-B753-BF2C2A5F108C}.Release|x86.Build.0 = Release|Win32
+		{95D3A21D-27B5-4420-9CAB-326C14254AD8}.Debug|x64.ActiveCfg = Debug|x64
+		{95D3A21D-27B5-4420-9CAB-326C14254AD8}.Debug|x64.Build.0 = Debug|x64
+		{95D3A21D-27B5-4420-9CAB-326C14254AD8}.Debug|x86.ActiveCfg = Debug|Win32
+		{95D3A21D-27B5-4420-9CAB-326C14254AD8}.Debug|x86.Build.0 = Debug|Win32
+		{95D3A21D-27B5-4420-9CAB-326C14254AD8}.Release|x64.ActiveCfg = Release|x64
+		{95D3A21D-27B5-4420-9CAB-326C14254AD8}.Release|x64.Build.0 = Release|x64
+		{95D3A21D-27B5-4420-9CAB-326C14254AD8}.Release|x86.ActiveCfg = Release|Win32
+		{95D3A21D-27B5-4420-9CAB-326C14254AD8}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

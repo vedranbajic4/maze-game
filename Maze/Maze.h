@@ -11,6 +11,9 @@
 const int MXN = 300;
 typedef std::pair<int, int> pii;
 
+extern const pii direction[4];
+extern int visited[MXN + 3][MXN + 3], glob;
+
 class Maze {
 	int n, m, items_number;
 	char** board;
@@ -23,7 +26,8 @@ class Maze {
 
 public:
 	Maze(int n, int m, int items_number);
-	pii get_position_robot();
+	pii get_position(const char target);
+	
 	void display_maze();
 	int play_minotaur();
 	~Maze();

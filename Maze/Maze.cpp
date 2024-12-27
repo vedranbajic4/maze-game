@@ -24,8 +24,9 @@ Maze::~Maze() {
 	delete[] board;
 }
 
-pii direction[4] = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
-int visited[MXN+3][MXN+3], glob;
+const pii direction[4] = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
+int glob = 0;
+int visited[303][303];
 
 void Maze::dfs(int r, int c){
 	int nr = 0, nc = 0;
@@ -182,12 +183,10 @@ void Maze::display_maze() {
 	render.display(board);
 }
 
-pii Maze::get_position_robot() {
-	cout << "Searching pos\n";
-	//display_maze();
+pii Maze::get_position(const char target) {
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
-			if (board[i][j] == 'R')
+			if (board[i][j] == target)
 				return make_pair(i, j);
 		}
 	}
