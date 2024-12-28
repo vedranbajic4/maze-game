@@ -1,11 +1,7 @@
 #include "Maze.h"
 
-using namespace std;
-
-Maze::Maze(int n, int m, int items_number) {
-	this->n = n;
-	this->m = m;
-	this->items_number = items_number;
+Maze::Maze(int n, int m, int items_number) : 
+	n(n), m(m), items_number(items_number){
 
 	render = Render(n, m);
 
@@ -31,15 +27,18 @@ int visited[303][303];
 void Maze::dfs(int r, int c){
 	int nr = 0, nc = 0;
 	visited[r][c] = glob;
-	//return;
+
 	for(int i = 0; i < 4; i++) {
 		nr = r + direction[i].first;
 		nc = c + direction[i].second;
 
-		if (!(nr >= 0 && nr < n && nc < m && nc >= 0)) continue;
+		if (!(nr >= 0 && nr < n && nc < m && nc >= 0)) {
+			continue;
+		}
 		
-		if (visited[nr][nc] != glob && board[nr][nc] != '#') 
+		if (visited[nr][nc] != glob && board[nr][nc] != '#') {
 			dfs(nr, nc);
+		}
 	}
 }
 
@@ -53,27 +52,39 @@ bool Maze::find_path(int r, int c) {
 		nr = r + direction[i].first;
 		nc = c + direction[i].second;
 
-		if (!(nr >= 0 && nr < n && nc < m && nc >= 0)) continue;
-		if (board[nr][nc] != '.') continue;
+		if (!(nr >= 0 && nr < n && nc < m && nc >= 0)) {
+			continue;
+		}
+		if (board[nr][nc] != '.') {
+			continue;
+		}
 
 		if (visited[nr][nc] != glob) {
-			if (find_path(nr, nc))
+			if (find_path(nr, nc)) {
 				return 1;
+			}
 		}
 	}
 
 	return false;
 }
 
-void Maze::random_blocks() {
-	vector<int> numbers;
+void Maze::generate() {
+	std::vector<int> numbers;
 
-	int entrance, limit, id, nr, nc, num_blocks;
+	int entrance = 0;
+	int limit = 0;
+	int id = 0;
+	int nr = 0;
+	int nc = 0;
+	int num_blocks = 0;
 	bool found = false;
 
 	while (!found) {
-		for (int i = 0; i < n * m; i++)
+		numbers.clear();
+		for (int i = 0; i < n * m; i++) {
 			numbers.push_back(i);
+		}
 		memset(board[0], '#', m);
 		memset(board[n-1], '#', m);
 		for (int i = 1; i < n-1; i++) {
@@ -89,50 +100,51 @@ void Maze::random_blocks() {
 
 		for (int i = 1; i <= n * m; i++) {
 			id = rand() % limit;
-			//cout << id << " ";
+
 			nr = numbers[id] / m;
 			nc = numbers[id] % m;
-			//cout << nr << ", " << nc << endl;
 
-			swap(numbers[id], numbers[limit - 1]);
+			std::swap(numbers[id], numbers[limit - 1]);
 			numbers.pop_back();
 			limit--;
 
-			if (board[nr][nc] == 'U' || board[nr][nc] == 'R') continue;
+			if (board[nr][nc] == 'U' || board[nr][nc] == 'R') {
+				continue;
+			}
 			
-			if(board[nr][nc] == '.') num_blocks++;
+			if (board[nr][nc] == '.') {
+				num_blocks++;
+			}
 
 			board[nr][nc] = '#';
 			glob++;
 			if (!find_path(1, entrance)) {
-				//display_maze();
 				board[nr][nc] = '.';
 				num_blocks--;
 			}
 
-			if (num_blocks >= (n * m / 3 - items_number)) {
+			if (num_blocks >= 3*(n + m)) {
 				found = true;
 				break;
 			}
 		}
 	}
-	//cout << ":Sve gotoov\n";
-	//return;
 	while (1) {
 		id = rand() % (n * m);
+
 		nr = id / m;
 		nc = id % m;
-		//cout << nr << ", " << nc << " " << board[nr][nc] << endl;
 
 		if (board[nr][nc] == '.' && visited[nr][nc] == glob) {
 			board[nr][nc] = 'M';
 			break;
 		}
 	}
-	//cout << "Pravim iteme\n";
+	
 	numbers.clear();
-	for (int i = 0; i < n * m; i++)
+	for (int i = 0; i < n * m; i++) {
 		numbers.push_back(i);
+	}
 	limit = n * m;
 
 	int items = items_number;
@@ -143,15 +155,17 @@ void Maze::random_blocks() {
 		nr = numbers[id] / m;
 		nc = numbers[id] % m;
 
-		swap(numbers[id], numbers[limit - 1]);
+		std::swap(numbers[id], numbers[limit - 1]);
 		numbers.pop_back();
 		limit--;
 
-		if (board[nr][nc] != '.') continue;
+		if (board[nr][nc] != '.') {
+			continue;
+		}
 		items--;
 		board[nr][nc] = 'P';
 	}
-	glob ++;
+	glob++;
 	for (int i = 0; i < m; i++) {
 		if (board[1][i] == 'R') {
 			dfs(1, i);
@@ -159,24 +173,15 @@ void Maze::random_blocks() {
 		}
 	}
 	
-	vector<int> possible;
+	std::vector<int> possible;
 	for (int i = 0; i < m; i++) {
 		if (visited[n - 2][i] == glob) {
-			cout << i << " ";
 			possible.push_back(i);
 		}
 	}
-	cout << endl;
 	int i;
 	i = rand() % (int)possible.size();
 	board[n-1][possible[i]] = 'I';
-}
-
-void Maze::generate() {
-	bool finish = false;
-	//cout << "generating maze\n";
-	//dfs(n - 1, m / 2, 0, finish);
-	random_blocks();
 }
 
 void Maze::display_maze() {
@@ -186,16 +191,19 @@ void Maze::display_maze() {
 pii Maze::get_position(const char target) {
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
-			if (board[i][j] == target)
-				return make_pair(i, j);
+			if (board[i][j] == target) {
+				return std::make_pair(i, j);
+			}
 		}
 	}
 
-	return make_pair(-1, -1);
+	return std::make_pair(-1, -1);
 }
 
 int Maze::play_minotaur() {
-	int rm = -1, cm = -1;
+	int rm = -1;
+	int cm = -1;
+
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
 			if (board[i][j] == 'M') {
@@ -205,8 +213,11 @@ int Maze::play_minotaur() {
 			}
 		}
 	}
-	int n_rm, n_cm, ret = 0;
-	vector<pii> possible;
+	int n_rm = 0;
+	int n_cm = 0;
+	int ret = 0;
+	std::vector<pii> possible;
+
 	for (int i = 0; i < 4; i++) {
 		n_rm = direction[i].first + rm;
 		n_cm = direction[i].second + cm;
@@ -219,12 +230,12 @@ int Maze::play_minotaur() {
 		}
 		else if (board[n_rm][n_cm] == 'R') {
 			possible.clear();
-			possible.push_back(make_pair(n_rm, n_cm));
+			possible.push_back(std::make_pair(n_rm, n_cm));
 			ret = 1;
 			break;
 		}
 		else {
-			possible.push_back(make_pair(n_rm, n_cm));
+			possible.push_back(std::make_pair(n_rm, n_cm));
 		}
 	}
 	int i;

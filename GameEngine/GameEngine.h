@@ -6,6 +6,7 @@ class Game_engine {
 	Robot r;
 	Minotaur m;
 	Maze maze;
+	void display_start();
 public:
 	Game_engine(int n, int m, int items_number);
 	void run();

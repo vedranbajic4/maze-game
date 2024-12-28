@@ -3,15 +3,14 @@
 #include <utility>
 #include <windows.h>
 #include "Maze.h"
-
-using namespace std;
-typedef pair<int, int> pii;
+#include "Item.h"
 
 class Robot {
-	int r, c;
+	void set_random_item();
 public:
+	int r, c;
+	Item* item;
 	void set_position(pii pos);
 	Robot();
-	Robot(pair<int, int> par);
-	int play(Maze& m);
+	void play(Maze& m);
 };

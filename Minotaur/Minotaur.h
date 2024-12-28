@@ -1,14 +1,9 @@
 #pragma once
 #include "Maze.h"
-#include <vector>
-#include <utility>
-
-using namespace std;
-typedef pair<int, int> pii;
 
 class Minotaur {
-	int r, c;
 public:
+	int r, c;
 	Minotaur();
 	Minotaur(int x, int y);
 	int play(Maze& m);
