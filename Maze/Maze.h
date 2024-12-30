@@ -1,32 +1,41 @@
+// ==============================================
+// Description:
+// This module contains declaration of class Maze
+// 
+// Author:
+// Vedran Bajic SV10/2023
+//
+// Last Modified: 2024-29-12
+// ==============================================
 #pragma once
 #include "Render.h"
-
-#include <utility>
+#include "MazeGenerator.h"
 #include <cstring>
-#include <vector>
 
+// maximal dimension for Maze
 const int MXN = 300;
-typedef std::pair<int, int> pii;
-
-extern const pii direction[4];
-extern int visited[MXN + 3][MXN + 3], glob;
 
 class Maze {
-	int items_number;
+	// board** represent 2D matrix for playing board (maze)
 	char** board;
+
+	// render class used for displaying maze
 	Render render;
 
-	void dfs(int r, int c);
-	void generate();
-	bool find_path(int r, int c);
-
 public:
+	// dimensions of maze
 	int n, m;
+
+	// constructor with paramters
 	Maze(int n, int m, int items_number);
+
+	// returns position of character Robot('R') or Minotaur('M')
 	pii get_position(const char target);
 	
 	void display_maze();
-	int play_minotaur();
+	void save_game();
 	~Maze();
+
+	// overloaded operator, returns board[i][j]
 	char*& operator[](int row);
 };

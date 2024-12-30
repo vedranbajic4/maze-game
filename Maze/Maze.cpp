@@ -1,187 +1,45 @@
+// ==============================================
+// Description:
+// Source file containing definitions for class Maze
+//
+// Author:
+// Vedran Bajic SV10/2023
+//
+// Last Modified: 2024-29-12
+// ==============================================
 #include "Maze.h"
 
 Maze::Maze(int n, int m, int items_number) : 
-	n(n), m(m), items_number(items_number){
+	n(n), m(m){
 
 	render = Render(n, m);
 
+	// dinamically alocating space for board
 	board = new char*[n];
 	for (int i = 0; i < n; i++) {
 		board[i] = new char[m];
 		memset(board[i], '#', m);
 	}
-	generate();
+
+	// creating class responsibile for maze generator
+	Maze_generator mg(n, m, items_number);
+
+	// Measuring the time for generating the maze
+	auto start = std::chrono::high_resolution_clock::now();
+	mg.generate(board);
+	
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> duration = end - start;
+
+	std::cout << "Time to generate maze: " << duration.count() << " seconds" << std::endl;
 }
 
+// Destructor: Dynamically deallocating memory for the board
 Maze::~Maze() {
 	for (int i = 0; i < n; i++) {
 		delete[] board[i];
 	}
 	delete[] board;
-}
-
-const pii direction[4] = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
-int glob = 0;
-int visited[303][303];
-
-void Maze::dfs(int r, int c){
-	int nr = 0, nc = 0;
-	visited[r][c] = glob;
-
-	for(int i = 0; i < 4; i++) {
-		nr = r + direction[i].first;
-		nc = c + direction[i].second;
-
-		if (!(nr >= 0 && nr < n && nc < m && nc >= 0)) {
-			continue;
-		}
-		
-		if (visited[nr][nc] != glob && board[nr][nc] != '#') {
-			dfs(nr, nc);
-		}
-	}
-}
-
-bool Maze::find_path(int r, int c) {
-	visited[r][c] = glob;
-	if (r == n - 2) {
-		return 1;
-	}
-	int nr, nc;
-	for (int i = 0; i < 4; i++) {
-		nr = r + direction[i].first;
-		nc = c + direction[i].second;
-
-		if (!(nr >= 0 && nr < n && nc < m && nc >= 0)) {
-			continue;
-		}
-		if (board[nr][nc] != '.') {
-			continue;
-		}
-
-		if (visited[nr][nc] != glob) {
-			if (find_path(nr, nc)) {
-				return 1;
-			}
-		}
-	}
-
-	return false;
-}
-
-void Maze::generate() {
-	std::vector<int> numbers;
-
-	int entrance = 0;
-	int limit = 0;
-	int id = 0;
-	int nr = 0;
-	int nc = 0;
-	int num_blocks = 0;
-	bool found = false;
-
-	while (!found) {
-		numbers.clear();
-		for (int i = 0; i < n * m; i++) {
-			numbers.push_back(i);
-		}
-		memset(board[0], '#', m);
-		memset(board[n-1], '#', m);
-		for (int i = 1; i < n-1; i++) {
-			memset(board[i], '.', m);
-			board[i][0] = board[i][m - 1] = '#';
-		}
-		entrance = rand() % (m - 2) + 2;
-		board[0][entrance] = 'U';
-		board[1][entrance] = 'R';
-		
-		limit = n * m;
-		num_blocks = 0;
-
-		for (int i = 1; i <= n * m; i++) {
-			id = rand() % limit;
-
-			nr = numbers[id] / m;
-			nc = numbers[id] % m;
-
-			std::swap(numbers[id], numbers[limit - 1]);
-			numbers.pop_back();
-			limit--;
-
-			if (board[nr][nc] == 'U' || board[nr][nc] == 'R') {
-				continue;
-			}
-			
-			if (board[nr][nc] == '.') {
-				num_blocks++;
-			}
-
-			board[nr][nc] = '#';
-			glob++;
-			if (!find_path(1, entrance)) {
-				board[nr][nc] = '.';
-				num_blocks--;
-			}
-
-			if (num_blocks >= 3*(n + m)) {
-				found = true;
-				break;
-			}
-		}
-	}
-	while (1) {
-		id = rand() % (n * m);
-
-		nr = id / m;
-		nc = id % m;
-
-		if (board[nr][nc] == '.' && visited[nr][nc] == glob) {
-			board[nr][nc] = 'M';
-			break;
-		}
-	}
-	
-	numbers.clear();
-	for (int i = 0; i < n * m; i++) {
-		numbers.push_back(i);
-	}
-	limit = n * m;
-
-	int items = items_number;
-	
-	while(limit > 0 && items > 0){
-		id = rand() % limit;
-
-		nr = numbers[id] / m;
-		nc = numbers[id] % m;
-
-		std::swap(numbers[id], numbers[limit - 1]);
-		numbers.pop_back();
-		limit--;
-
-		if (board[nr][nc] != '.') {
-			continue;
-		}
-		items--;
-		board[nr][nc] = 'P';
-	}
-	glob++;
-	for (int i = 0; i < m; i++) {
-		if (board[1][i] == 'R') {
-			dfs(1, i);
-			break;
-		}
-	}
-	
-	std::vector<int> possible;
-	for (int i = 0; i < m; i++) {
-		if (visited[n - 2][i] == glob) {
-			possible.push_back(i);
-		}
-	}
-	int i;
-	i = rand() % (int)possible.size();
-	board[n-1][possible[i]] = 'I';
 }
 
 void Maze::display_maze() {
@@ -200,57 +58,14 @@ pii Maze::get_position(const char target) {
 	return std::make_pair(-1, -1);
 }
 
-int Maze::play_minotaur() {
-	int rm = -1;
-	int cm = -1;
-
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			if (board[i][j] == 'M') {
-				rm = i;
-				cm = j;
-				break;
-			}
-		}
-	}
-	int n_rm = 0;
-	int n_cm = 0;
-	int ret = 0;
-	std::vector<pii> possible;
-
-	for (int i = 0; i < 4; i++) {
-		n_rm = direction[i].first + rm;
-		n_cm = direction[i].second + cm;
-
-		if (!(n_rm >= 0 && n_rm < n && n_cm < m && n_cm >= 0)) {
-			continue;
-		}
-		else if (board[n_rm][n_cm] == '#') {
-			continue;
-		}
-		else if (board[n_rm][n_cm] == 'R') {
-			possible.clear();
-			possible.push_back(std::make_pair(n_rm, n_cm));
-			ret = 1;
-			break;
-		}
-		else {
-			possible.push_back(std::make_pair(n_rm, n_cm));
-		}
-	}
-	int i;
-	
-	i = rand() % (int)possible.size();
-	board[rm][cm] = '.';
-	board[possible[i].first][possible[i].second] = 'M';
-
-	return ret;
-}
-
 char*& Maze::operator[](int row) {
 	// Return a reference to the row
 	if (row < 0 || row >= m) {
 		throw std::out_of_range("Row index out of bounds");
 	}
 	return board[row];
+}
+
+void Maze::save_game() {
+	render.save_game(board);
 }
