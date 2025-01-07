@@ -9,8 +9,9 @@
 // ==============================================
 #include "GameEngine.h"
 
-Game_engine::Game_engine(int n, int m2, int items_number)
-	: maze(n, m2, items_number) {
+Game_engine::Game_engine(unsigned int n, unsigned int m2, unsigned int items_number)
+	: maze(n, m2, items_number)
+{
 
 	// starting position of Robot and Minotaur
 	r.set_position(maze.get_position('R'));
@@ -20,7 +21,8 @@ Game_engine::Game_engine(int n, int m2, int items_number)
 }
 
 // Before maze board, displays important things about item.
-void Game_engine::display_start() {
+void Game_engine::display_start() 
+{
 	std::cout << "Item: ";
 	if (r.item != nullptr) {
 		if (r.item->duration <= 0) {
@@ -42,7 +44,8 @@ void Game_engine::display_start() {
 	}
 }
 
-void Game_engine::run() {
+void Game_engine::run() 
+{
 	int played = 0;
 	pii prev_minotaur_pos;
 
@@ -87,6 +90,7 @@ void Game_engine::run() {
 	}
 }
 
-void Game_engine::save_game() {
+void Game_engine::save_game() 
+{
 	maze.save_game();
 }

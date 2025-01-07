@@ -9,8 +9,9 @@
 // ==============================================
 #include "Maze.h"
 
-Maze::Maze(int n, int m, int items_number) : 
-	n(n), m(m){
+Maze::Maze(unsigned int n, unsigned int m, unsigned int items_number) :
+	n(n), m(m)
+{
 
 	render = Render(n, m);
 
@@ -35,18 +36,21 @@ Maze::Maze(int n, int m, int items_number) :
 }
 
 // Destructor: Dynamically deallocating memory for the board
-Maze::~Maze() {
+Maze::~Maze() 
+{
 	for (int i = 0; i < n; i++) {
 		delete[] board[i];
 	}
 	delete[] board;
 }
 
-void Maze::display_maze() {
+void Maze::display_maze() 
+{
 	render.display(board);
 }
 
-pii Maze::get_position(const char target) {
+pii Maze::get_position(const char target) 
+{
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
 			if (board[i][j] == target) {
@@ -58,14 +62,16 @@ pii Maze::get_position(const char target) {
 	return std::make_pair(-1, -1);
 }
 
-char*& Maze::operator[](int row) {
+char*& Maze::operator[](int row) 
+{
 	// Return a reference to the row
-	if (row < 0 || row >= m) {
+	if (row < 0 || row >= n) {
 		throw std::out_of_range("Row index out of bounds");
 	}
 	return board[row];
 }
 
-void Maze::save_game() {
+void Maze::save_game() 
+{
 	render.save_game(board);
 }

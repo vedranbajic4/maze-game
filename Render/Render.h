@@ -6,7 +6,7 @@
 // Author:
 // Vedran Bajic SV10/2023
 //
-// Last Modified: 2024-25-12
+// Last Modified: 2024-5-1
 // ==============================================
 
 #pragma once
@@ -15,13 +15,13 @@
 #include <fstream>
 
 class Render {
-	int n, m; // Number of rows (n) and columns (m) of the game board
+	unsigned int n, m; // Number of rows (n) and columns (m) of the game board
 
 public:
 	Render();
 
 	// Constructor with parameters (dimension of the board)
-	Render(int n, int m);
+	Render(unsigned int n, unsigned int m);
 	
 	// Displaying board on the console
 	void display(char** board);

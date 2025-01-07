@@ -11,7 +11,8 @@
 // ==============================================
 #include "GameEngine.h"
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) 
+{
     // Wrong number of arguments
     if (argc != 4) {
         std::cerr << "Error: Wrong number of parameters" << std::endl;
@@ -26,11 +27,23 @@ int main(int argc, char* argv[]) {
     // Validating parameters
     if (rows <= 15 || cols <= 15 || items_number <= 3 || rows > MXN || cols > MXN) {
         std::cerr << "Error: Rows and columns must be >= 15, and the number of items must be >= 3." << std::endl;
-        return 1;
+        return 2;
+    }
+
+	// invalid number of items
+    int items_limit = rows * cols - 2 * rows - 2 * cols + 4 - 2 * (rows + cols) - 2;
+    if (items_number > items_limit) {
+        std::cerr << "Error: The number of items can't fit in given dimension" << std::endl;
+        return 3;
+    }
+
+    // stack overflow
+    if (rows * cols > 10000) {
+        std::cerr << "Error: Stack overflow, choose smaller matrix" << std::endl;
+        return 4;
     }
 
 	Game_engine game(rows, cols, items_number);
-	
 
     // running game
 	game.run();

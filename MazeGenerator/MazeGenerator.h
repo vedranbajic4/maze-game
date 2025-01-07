@@ -26,11 +26,11 @@ extern int visited[303][303];
 
 class Maze_generator {
 	// parameters used for generating maze, dimension and number of items
-	int n, m, items_number;
+	unsigned int n, m, items_number;
 public:
 	// constructors, default and with parameters
 	Maze_generator();
-	Maze_generator(int n, int m, int x);
+	Maze_generator(unsigned int n, unsigned int m, unsigned int x);
 	
 	// method for generating maze. Putting blocks on random places, then checking if path from
 	// Robot to exit exists. If not, remove the block, and repeat it until condition for number

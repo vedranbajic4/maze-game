@@ -13,7 +13,7 @@
 #include <cstring>
 
 // maximal dimension for Maze
-const int MXN = 300;
+const unsigned int MXN = 300;
 
 class Maze {
 	// board** represent 2D matrix for playing board (maze)
@@ -24,16 +24,17 @@ class Maze {
 
 public:
 	// dimensions of maze
-	int n, m;
+	unsigned int n, m;
 
 	// constructor with paramters
-	Maze(int n, int m, int items_number);
+	Maze(unsigned int n, unsigned int m, unsigned int items_number);
 
 	// returns position of character Robot('R') or Minotaur('M')
 	pii get_position(const char target);
 	
 	void display_maze();
 	void save_game();
+
 	~Maze();
 
 	// overloaded operator, returns board[i][j]

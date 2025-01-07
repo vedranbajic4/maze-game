@@ -20,7 +20,6 @@ public:
 	Item(int r, int c);
 	// string get_type return name of the class
 	virtual std::string get_type() = 0;
-
 	virtual bool effect(Maze& maze, int r, int c) = 0;
 };
 

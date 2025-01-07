@@ -10,32 +10,39 @@
 
 #include "Item.h"
 
-Item::Item(int r, int c) : r(r), c(c), duration(3){
+Item::Item(int r, int c) : r(r), c(c), duration(3)
+{
 }
 
 // shield constructor sets duration to 4 instead of 3, for practical causes
-Shield::Shield(int r, int c) : Item(r, c) {
+Shield::Shield(int r, int c) : Item(r, c)
+{
 	duration = 4;
 }
 
-inline void set_color(int color) {
+inline void set_color(int color) 
+{
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
 
 // these functions are override
-std::string Fog_of_war::get_type() {
+std::string Fog_of_war::get_type() 
+{
 	return "Fog_of_war";
 }
 
-std::string Shield::get_type() {
+std::string Shield::get_type() 
+{
 	return "Shield";
 }
 
-std::string Hammer::get_type() {
+std::string Hammer::get_type() 
+{
 	return "Hammer";
 }
 
-std::string Sword::get_type() {
+std::string Sword::get_type() 
+{
 	return "Sword";
 }
 
@@ -43,14 +50,16 @@ std::string Sword::get_type() {
 // every override function effect has duration--, for decreasing item duration
 // 
 // Shield sets Minotaur on position r, c, and prevents minotaur to eat robot
-bool Shield::effect(Maze& maze, int r, int c) {
+bool Shield::effect(Maze& maze, int r, int c) 
+{
 	duration--;
 	maze[r][c] = 'M';
 	return true;
 }
 
 // hammer effect returns condition if cell is block, so robot can go through wal
-bool Hammer::effect(Maze& maze, int r, int c) {
+bool Hammer::effect(Maze& maze, int r, int c) 
+{
 	duration--;
 	if (r < 0 || r >= maze.n || c < 0 || c >= maze.m) {
 		return true;
@@ -59,8 +68,10 @@ bool Hammer::effect(Maze& maze, int r, int c) {
 }
 
 // fog of war effect displays 3x3 submatrix, with center in r, c. Other cell's are ' '
-bool Fog_of_war::effect(Maze& maze, int r, int c) {
+bool Fog_of_war::effect(Maze& maze, int r, int c)
+{
 	duration--;
+	std::cout << maze.n << " " << maze.m << std::endl;
 	for (int i = 0; i < maze.n; i++) {
 		for (int j = 0; j < maze.m; j++) {
 			if (maze[i][j] == 'P') {
@@ -93,7 +104,8 @@ bool Fog_of_war::effect(Maze& maze, int r, int c) {
 }
 
 // Sword effect returns condition if cell is minotaur, so that robot can kill him
-bool Sword::effect(Maze& maze, int r, int c) {
+bool Sword::effect(Maze& maze, int r, int c) 
+{
 	duration--;
 	return (maze[r][c] == 'U' || maze[r][c] == '#');
 }

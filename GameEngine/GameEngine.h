@@ -23,7 +23,7 @@ class Game_engine {
 
 	void display_start();
 public:
-	Game_engine(int n, int m, int items_number);
+	Game_engine(unsigned int n, unsigned int m, unsigned int items_number);
 
 	// Run function. It is responsible for robot and minotaur playing, game interaction, etc...
 	void run();

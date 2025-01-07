@@ -14,14 +14,18 @@ const pii direction[4] = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
 int glob = 0;
 int visited[303][303];
 
-Maze_generator::Maze_generator(int n, int m, int items_number) : n(n), m(m), items_number(items_number){
+Maze_generator::Maze_generator(unsigned int n, unsigned int m, unsigned int items_number) : 
+	n(n), m(m), items_number(items_number)
+{
 }
 
-Maze_generator::Maze_generator() : n(16), m(16), items_number(4) {
+Maze_generator::Maze_generator() : n(16), m(16), items_number(4)
+{
 
 }
 
-bool Maze_generator::find_path(int r, int c, char** board) {
+bool Maze_generator::find_path(int r, int c, char** board) 
+{
 	// marking current cell
 	visited[r][c] = glob;
 	
@@ -55,7 +59,8 @@ bool Maze_generator::find_path(int r, int c, char** board) {
 	return false;
 }
 
-void Maze_generator::generate(char** board) {
+void Maze_generator::generate(char** board)
+{
 	std::vector<int> numbers;
 
 	int entrance = 0;
@@ -65,7 +70,7 @@ void Maze_generator::generate(char** board) {
 	int nc = 0;
 	int num_blocks = 0;
 
-	while (num_blocks < 3 * (n + m)) {
+	while (num_blocks < 2 * (n + m)) {
 		// mapping cells in board to integers
 		numbers.clear();
 		for (int i = 0; i < n * m; i++) {
@@ -111,7 +116,7 @@ void Maze_generator::generate(char** board) {
 				board[nr][nc] = '.';
 				num_blocks--;
 			}
-			if (num_blocks == 3 * (n + m)) break;
+			if (num_blocks == 2 * (n + m)) break;
 		}
 	}
 	
@@ -153,7 +158,7 @@ void Maze_generator::generate(char** board) {
 		items--;
 		board[nr][nc] = 'P';
 	}
-
+	std::cout << items << std::endl;
 	//finding all possible cells where we can put exit
 	std::vector<int> possible;
 	for (int i = 0; i < m; i++) {

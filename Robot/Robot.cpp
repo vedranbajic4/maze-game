@@ -10,11 +10,13 @@
 
 #include "Robot.h"
 
-Robot::Robot() : r(0), c(0), item(nullptr){
+Robot::Robot() : r(0), c(0), item(nullptr)
+{
 }
 
 // sets random item, using rand() function
-void Robot::set_random_item() {
+void Robot::set_random_item()
+{
     int i = (rand() & 3);
     delete item;
  
@@ -33,20 +35,23 @@ void Robot::set_random_item() {
 }
 
 // sets position for robot
-void Robot::set_position(pii pos) {
+void Robot::set_position(pii pos)
+{
     r = pos.first;
     c = pos.second;
 }
 
 // returns true if robot can go to this cell, taking maze, and cell (r, c)
-bool condition(Maze& maze, const int r, const int c) {
+bool condition(Maze& maze, const int r, const int c) 
+{
     return (maze[r][c] == '#' || 
             maze[r][c] == 'U' || 
             maze[r][c] == 'M');
 }
 
 char previous = '.';
-int Robot::play(Maze& maze) {
+int Robot::play(Maze& maze) 
+{
     Sleep(200);
 
     int dr = 0;
@@ -63,6 +68,9 @@ int Robot::play(Maze& maze) {
         if (dr == 0 && dc == 0) {
             continue;
         }
+		if(r + dr < 0 || r + dr >= maze.n || c + dc < 0 || c + dc >= maze.m) {
+			continue;
+		}
 
         // checking item existing, if robot has hammer or sword, calling their effect
         if (item != nullptr) {

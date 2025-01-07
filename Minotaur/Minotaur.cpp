@@ -9,18 +9,22 @@
 // ==============================================
 #include "Minotaur.h"
 
-Minotaur::Minotaur() : r(0), c(0){
+Minotaur::Minotaur() : r(0), c(0)
+{
 }
 
-Minotaur::Minotaur(int x, int y) : r(x), c(y){
+Minotaur::Minotaur(int x, int y) : r(x), c(y)
+{
 }
 
-void Minotaur::set_position(pii pos) {
+void Minotaur::set_position(pii pos) 
+{
 	r = pos.first;
 	c = pos.second;
 }
 
-int Minotaur::play(Maze& maze) {
+int Minotaur::play(Maze& maze) 
+{
 	int n_rm = 0;
 	int n_cm = 0;
 	int ret = 0;
