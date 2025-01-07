@@ -1,13 +1,19 @@
-# Maze Game
-## Description
+# Maze Game 
+![OOP Course Project](https://img.shields.io/badge/course-OOP2-orange)
+![Language](https://img.shields.io/badge/language-C++-blue)
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
+
+## Description 🤖
 This is a project for course Object Oriented Programming 2. A C++ maze escape game with OOP principles, where players navigate the maze, collect items, and avoid the Minotaur.
 
-## How to Play
+## How to Play ❔
 - Use arrow keys to move up, left, down, and right.
 - The goal is to find the exit marked with `I` while avoiding walls (`#`) and minotaur `M`
 - Collect items (`P`) to gain special effect
 - Pressing `Q` will exit the game
-## Rules
+
+## Rules📖
+
 ### Maze
 Maze is dinamically generated with input parameters **n, m, item_numbers**. Robot is displayed as `R`, minotaur as `M`, items as `P`.
 
@@ -22,7 +28,7 @@ Each item will give robot special effect that lasts 3 moves. Special effects are
 Minotaur is moving randomly across the board. If he steps on the item, he will **destroy** it. 
 If the minotaur is 1 move away from robot, minotaur will **kill the robot**.
 
-## Installation
+## Installation 🏃
 1. Clone the repository:
    ```bash
     git clone https://github.com/vedranbajic4/maze-game
